@@ -525,6 +525,7 @@ body {
    Responsive Design
    ======================================== */
 
+/* Tablet */
 @media (max-width: 1024px) {
   .sidebar {
     width: 240px;
@@ -537,25 +538,197 @@ body {
   .patients-grid {
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   }
+
+  .header-stats {
+    gap: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
 }
 
+/* Mobile */
 @media (max-width: 768px) {
+
+  /* Hide sidebar by default on mobile */
   .sidebar {
-    transform: translateX(-100%);
+    position: fixed;
+    left: -280px;
+    width: 280px;
+    height: 100vh;
+    z-index: 1000;
+    transition: left 0.3s ease;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+  }
+
+  .sidebar.mobile-open {
+    left: 0;
+  }
+
+  /* Main content takes full width */
+  .main-content {
+    margin-left: 0;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  /* Header adjustments */
+  .header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .header-title h2 {
+    font-size: 1.5rem;
+  }
+
+  .header-stats {
+    width: 100%;
+    justify-content: space-around;
+    gap: 0.5rem;
+  }
+
+  .stat-item {
+    flex: 1;
+  }
+
+  .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+  }
+
+  /* Patient grid - single column */
+  .patients-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* Patient card adjustments */
+  .patient-card {
+    padding: 1rem;
+  }
+
+  .vitals-grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  /* Alerts panel - full width at bottom */
+  .alerts-panel {
+    position: fixed;
+    bottom: 0;
+    top: auto;
+    right: 0;
+    left: 0;
+    width: 100%;
+    max-height: 40vh;
+    border-radius: 20px 20px 0 0;
+    padding: 1rem;
+    transform: translateY(calc(100% - 60px));
     transition: transform 0.3s ease;
   }
 
+  .alerts-panel.expanded {
+    transform: translateY(0);
+  }
+
+  /* Alert items smaller */
+  .alert-item {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  /* Buttons full width on mobile */
+  .btn {
+    width: 100%;
+    padding: 0.75rem;
+  }
+
+  /* Modal adjustments */
+  [style*="max-width: 600px"],
+  [style*="max-width: 500px"],
+  [style*="max-width: 800px"],
+  [style*="max-width: 900px"] {
+    width: 95% !important;
+    max-width: 95% !important;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .header-title h2 {
+    font-size: 1.25rem;
+  }
+
+  .patient-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .patient-meta {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .vital-value {
+    font-size: 1.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.1rem;
+  }
+
+  /* Smaller padding */
   .main-content {
-    margin-left: 0;
+    padding: 0.75rem;
   }
 
-  .patients-grid {
-    grid-template-columns: 1fr;
+  .patient-card {
+    padding: 0.75rem;
   }
+}
 
-  .alerts-panel {
-    width: calc(100% - 2rem);
-    right: 1rem;
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1001;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.75rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+/* Mobile Overlay */
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+@media (max-width: 768px) {
+  .mobile-overlay.active {
+    display: block;
   }
 }
 

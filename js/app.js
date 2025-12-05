@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initializeApp();
   startRealTimeUpdates();
+  setupMobileMenu();
 });
 
 // Initialize the application
@@ -2092,6 +2093,47 @@ function initializeNurseView() {
   `;
 
   updateStats();
+}
+
+// ========================================
+// MOBILE MENU FUNCTIONALITY
+// ========================================
+
+function setupMobileMenu() {
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileOverlay = document.getElementById('mobileOverlay');
+  const sidebar = document.querySelector('.sidebar');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  if (!mobileMenuBtn || !mobileOverlay || !sidebar) return;
+
+  // Toggle menu
+  mobileMenuBtn.addEventListener('click', () => {
+    sidebar.classList.toggle('mobile-open');
+    mobileOverlay.classList.toggle('active');
+  });
+
+  // Close menu when clicking overlay
+  mobileOverlay.addEventListener('click', () => {
+    sidebar.classList.remove('mobile-open');
+    mobileOverlay.classList.remove('active');
+  });
+
+  // Close menu when clicking nav link
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      sidebar.classList.remove('mobile-open');
+      mobileOverlay.classList.remove('active');
+    });
+  });
+
+  // Close menu on window resize to desktop
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) {
+      sidebar.classList.remove('mobile-open');
+      mobileOverlay.classList.remove('active');
+    }
+  });
 }
 
 // Console log for debugging
